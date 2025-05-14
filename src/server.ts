@@ -32,7 +32,7 @@ export function createSchemaLink(options: SchemaLinkOptions) {
       };
 
       const result = await (isSubscription(request.query) ? subscribe(args) : execute(args));
-      const iterable = (ensureIterable(result) as any) as AsyncIterable<any>;
+      const iterable = ensureIterable(result) as any as AsyncIterable<any>;
       await forAwaitEach(iterable, (value: any) => observer.next(value));
       observer.complete();
     } catch (error) {
